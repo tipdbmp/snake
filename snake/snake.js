@@ -70,6 +70,19 @@ function Game(args) {
         },
     });
 
+    controls(
+        $document,
+        // fuck 'this' & 'bind' =)
+        snake.move_up,   snake.move_down,
+        snake.move_left, snake.move_right
+    );
+
+    $scope.grid       = grid.grid;
+    $scope.score      = score;
+    $scope.game_over  = game_over;
+    $scope.snake_body = snake.body;
+    $scope.mute       = sound.mute;
+
     snake.render();
     spawn_rocks();
     push_snake();
@@ -95,18 +108,6 @@ function push_snake() {
         }
     }, 100);
 }
-
-    controls(
-        $document,
-        // fuck bind =)
-        snake.move_up,   snake.move_down,
-        snake.move_left, snake.move_right
-    );
-
-    $scope.grid       = grid.grid;
-    $scope.score      = score;
-    $scope.game_over  = game_over;
-    $scope.snake_body = snake.body;
 
 return {
     game_over:    game_over,
@@ -370,10 +371,10 @@ spawn_rock: spawn_rock,
 
 
 function Sound() {
-    var mute = false;
+    var mute = { value: false };
 
 function play(sound_filepath) {
-    if (mute) { return; }
+    if (mute.value) { return; }
     new Howl({
         urls: [sound_filepath + '.mp3', sound_filepath + '.ogg'],
         volume: 0.7,
@@ -382,7 +383,7 @@ function play(sound_filepath) {
 
 return {
 play: play,
-mute: function(val) { mute = val; },
+mute: mute,
 };}
 
 

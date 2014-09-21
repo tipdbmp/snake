@@ -1,9 +1,15 @@
 body {
     font-family: Verdana;
     font-size: 21px;
+    margin-top: 200px;
 }
 
+.align-center { text-align: center; }
+
 .grid {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
     border: 5px solid #7ed4bd;
 }
 .grid td {

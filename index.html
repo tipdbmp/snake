@@ -22,8 +22,11 @@
 <body>
 
 <!--<div ng-controller="root">-->
-<div ng-controller="app.ctrl.Snake">
+<div class="snake-yard" ng-controller="app.ctrl.Snake">
 
+<p class="align-center">
+    <label><input ng-model="mute.value" type="checkbox" name="" value=""> mute</label>
+</p>
 <table class="grid">
 <tr ng-repeat="row in grid">
 <td ng-repeat="col in row track by [$index]">
@@ -31,11 +34,14 @@
 </td>
 </tr>
 </table>
-<p>
+<p class="align-center">
     score: {{ score.value }}
   | length: {{ snake_body.length }}
 </p>
-<p ng-show="game_over.value">Game Over!</p>
+<p ng-show="game_over.value" class="align-center">Game Over!</p>
+<p class="align-center">
+<button ng-click="restart_game()" class="btn">restart game</button>
+</p>
 
 <!--
 <br>
@@ -53,7 +59,7 @@
 <button ng-click="snake_grow()">grow</button>
 <br>
 -->
-<button ng-click="restart_game()" class="btn">restart game</button>
+
 <!--<button ng-click="is_game_over()">is game over</button>-->
 
 
