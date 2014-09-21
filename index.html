@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="our/css/bootstrap.css">
+    <link rel="stylesheet" href="our/css/app.css">
+
+    <script src="our/js/angular.js"></script>
+    <script src="our/js/angular-route.js"></script>
+    <script src="our/js/lodash.min.js"></script>
+    <script src="our/js/howler.min.js"></script>
+<!--    <script src="our/js/ui-bootstrap-tpls-0.9.0.js"></script>-->
+
+    <link rel="stylesheet" href="snake/snake.css">
+    <script src="snake/snake.js"></script>
+<!--    <script src="B/B.js"></script>-->
+    <script src="app.js"></script>
+
+    <title>Very Simple Single Page App</title>
+</head>
+<body>
+
+<!--<div ng-controller="root">-->
+<div ng-controller="app.ctrl.Snake">
+
+<table class="grid">
+<tr ng-repeat="row in grid">
+<td ng-repeat="col in row track by [$index]">
+   <span ng-bind-html="safehtml(col)"></span>
+</td>
+</tr>
+</table>
+<p>
+    score: {{ score.value }}
+  | length: {{ snake_body.length }}
+</p>
+<p ng-show="game_over.value">Game Over!</p>
+
+<!--
+<br>
+<button ng-click="dostuff()">do stuff</button>
+<button ng-click="dootherstuff()">do other stuff</button>
+<button ng-click="put_snake_body()">put snake skin</button>
+<button ng-click="render_snake()">render snake</button>
+-->
+<!--
+<br>
+<button ng-click="snake_move_up()">up</button>
+<button ng-click="snake_move_down()">down</button>
+<button ng-click="snake_move_left()">left</button>
+<button ng-click="snake_move_right()">right</button>
+<button ng-click="snake_grow()">grow</button>
+<br>
+-->
+<button ng-click="restart_game()" class="btn">restart game</button>
+<!--<button ng-click="is_game_over()">is game over</button>-->
+
+
+
+<!--
+<tabset>
+<tab select="tabhref('/A')">
+    <tab-heading>
+         <a href="#/A">A</a>
+    </tab-heading>
+    <div ng-view></div>
+</tab>
+<tab select="tabhref('/B')">
+    <tab-heading>
+         <a href="#/B">B</a>
+    </tab-heading>
+    <div ng-view></div>
+</tab>
+</tabset>
+-->
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+body {
+    font-family: Verdana;
+    font-size: 21px;
+}
+
+.grid {
+    border: 5px solid #7ed4bd;
+}
+.grid td {
+    font-size: 0px;
+/*    border: 1px solid black;*/
+    width: 20px;
+    height: 20px;
+/*    line-height: 25px;*/
+}
+
+.snake-head, .snake-body, .rock, .empty {
+    width: 20px;
+    height: 20px;
+    display: inline-table;
+    border-radius: 5px;
+}
+
+.snake-head {
+    background: #d34560;
+}
+
+.snake-body {
+    background: #ab5bc3;
+
+}
+
+.rock {
+    background: #61e571;
+/*    border-radius: 0px;*/
+    border-radius: 100%;
+}
+
+
