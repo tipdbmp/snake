@@ -1,13 +1,24 @@
 angular.module('app.ctrl.Snake', [
 
 ])
-.controller('app.ctrl.Snake', function($scope, $sce, $document, $timeout, $interval) {
+.controller('app.ctrl.Snake', function(
+    $scope,
+    $sce,
+    $document,
+    $timeout,
+    $interval
+) {
     var game;
     var snake
 
 function start_game() {
 
-    game = Game({ $scope: $scope, $document: $document, $timeout: $timeout, $interval: $interval });
+    game = Game({
+        $scope: $scope,
+        $document: $document,
+        $timeout: $timeout,
+        $interval: $interval
+    });
 //    snake = game.snake;
 
 //    snake.render();
@@ -30,10 +41,10 @@ function start_game() {
 //    game.grid.update(1, 1, '<span class="rock">&nbsp;</span');
 
 }
-    $timeout(function() { start_game(); }, 0);
+    start_game();
     $scope.restart_game = function() {
         game.game_over.value = true;
-        $timeout(function() { start_game(); }, 0);
+        start_game();
     };
 
     $scope.safehtml = function(html) { return $sce.trustAsHtml(html); };
@@ -44,7 +55,7 @@ function Game(args) {
     var $scope    = args.$scope;
     var $document = args.$document;
     var $timeout  = args.$timeout;
-//    var $interval = args.$interval;
+    var $interval = args.$interval;
 
     var game_over = { value: false };
     var score     = { value: 0 };
@@ -70,6 +81,12 @@ function Game(args) {
         },
     });
 
+    $scope.grid       = grid.grid;
+    $scope.score      = score;
+    $scope.game_over  = game_over;
+    $scope.snake_body = snake.body;
+    $scope.mute       = sound.mute;
+
     controls(
         $document,
         // fuck 'this' & 'bind' =)
@@ -77,15 +94,13 @@ function Game(args) {
         snake.move_left, snake.move_right
     );
 
-    $scope.grid       = grid.grid;
-    $scope.score      = score;
-    $scope.game_over  = game_over;
-    $scope.snake_body = snake.body;
-    $scope.mute       = sound.mute;
 
     snake.render();
     spawn_rocks();
-    push_snake();
+    var $snake_pusher = $interval(function() {
+        snake.continue_forward();
+    }, 100, 0, true);
+
 
 function spawn_rocks() {
     $timeout(function() {
@@ -97,17 +112,17 @@ function spawn_rocks() {
             console.log('rock');
             spawn_rocks();
         }
-    }, 1000 * rand(1, 2));
+    }, 1000 * rand(1, 2), 0, false);
 }
 
-function push_snake() {
-    $timeout(function() {
-        if (!game_over.value) {
-            snake.continue_forward();
-            push_snake();
-        }
-    }, 100);
-}
+//function push_snake() {
+//    $timeout(function() {
+//        if (!game_over.value) {
+//            snake.continue_forward();
+//            push_snake();
+//        }
+//    }, 100, 0, true);
+//}
 
 return {
     game_over:    game_over,
@@ -147,15 +162,15 @@ function make_grid() {
 };
 
 function update(row, col, html_string) {
-    $scope.$apply(function() {
+//    $scope.$apply(function() {
         grid[row][col] = html_string;
-    });
+//    });
 };
 
 function clear(row, col) {
-    $scope.$apply(function() {
+//    $scope.$apply(function() {
         grid[row][col] = '<span class="empty">&nbsp;</span>';
-    });
+//    });
 };
 
 return {
